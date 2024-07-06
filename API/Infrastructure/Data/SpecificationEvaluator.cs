@@ -20,6 +20,20 @@ namespace Infrastructure.Data
             {
                 query = query.Where(spec.Criteria); //Applies the filtering criteria to the query if it exists.
             }
+            if (spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+            if (spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending);
+            }
+            if (spec.IsPagingEnable)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+
+
             //Uses the Aggregate method to apply all the includes to the query.
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include)); //For each include expression in spec.Includes, it applies the Include method to the current query.  //current is the initial value
 

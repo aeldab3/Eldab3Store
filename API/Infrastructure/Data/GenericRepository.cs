@@ -43,6 +43,11 @@ namespace Infrastructure.Data
 
         ///Apply the given specification to an IQueryable<T>.
         //Called internally by other methods to apply the specification before executing the query.
+
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec); //AsQueryable(): Converts the DbSet<T> to IQueryable<T>.
