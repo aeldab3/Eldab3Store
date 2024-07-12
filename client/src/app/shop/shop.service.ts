@@ -1,3 +1,4 @@
+import { IProduct } from './../shared/models/product';
 import { shopParams } from './../shared/models/shopParams';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -37,10 +38,14 @@ export class ShopService {
 
     return this.http.get<IPagination>(this.baseUrl + 'products', {observe: 'response', params}) //Uses observe: 'response' to get the full HTTP response.
     .pipe( //pipe is used to apply the map operator to the observable returned by this.http.get.
-      map(response => { //. In this case, map is used to transform the full HTTP response into just the body of the response.
+      map(response => { //In this case, map is used to transform the full HTTP response into just the body of the response.
         return response.body;
       })
     )
+  }
+
+  getProduct(id: number){
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
   //Fetches product brands from the API

@@ -63,12 +63,12 @@ namespace API.Controllers
             return Ok ( await _productBrandRepo.ListAllAsync());
         }
 
-        [HttpGet("brands/{id}")]
-        public async Task<ActionResult<ProductBrand>> GetProductBrand(int id)
-        {
-            var productBrand = await _productBrandRepo.GetByIdAsync(id);
-            return Ok(productBrand);
-        }
+        //[HttpGet("brands/{id}")]
+        //public async Task<ActionResult<ProductBrand>> GetProductBrand(int id)
+        //{
+        //    var productBrand = await _productBrandRepo.GetByIdAsync(id);
+        //    return Ok(productBrand);
+        //}
 
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
@@ -76,11 +76,11 @@ namespace API.Controllers
             return Ok(await _productTypeRepo.ListAllAsync());
         }
 
-        [HttpGet("types/{id}")]
-        public async Task<ActionResult<ProductType>> GetProductType(int id)
-        {
-            var productType = await _productTypeRepo.GetByIdAsync(id);
-            return Ok(productType);
-        }
+        //[HttpGet("types/{id}")]
+        //public async Task<ActionResult<ProductType>> GetProductType(int id)
+        //{
+        //    var productType = await _productTypeRepo.GetByIdAsync(id);
+        //    return Ok(productType);
+        //}
     }
 }

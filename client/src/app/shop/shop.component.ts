@@ -43,7 +43,7 @@ this.getTypes();
   getProducts(){
   this.shopService.getProducts(this.shopParams).subscribe({
     next: (products) => { //The 'next' handler is called when new data arrives
-      this.products = products?.data || []; //// Assign the fetched products to the products array
+      this.products = products?.data || []; //Assign the fetched products to the products array
       this.shopParams.pageNumber = products?.pageIndex || 1; //Set the pageNumber from the returned products data
       this.shopParams.pageSize = products?.pageSize || 6; //Set the pageSize from the returned products data
       this.totalCount = products?.count || 0; //Set the totalCount from the returned products data

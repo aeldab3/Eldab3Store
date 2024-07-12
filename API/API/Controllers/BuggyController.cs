@@ -13,7 +13,7 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet("notfound")]
+        [HttpGet("not-found")]
         public ActionResult GetNotFoundRequest()
         {
             var thing = _context.Products.Find(42);
@@ -24,24 +24,28 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpGet("servererror")]
+        [HttpGet("server-error")]
         public ActionResult GetServerError()
         {
             var thing = _context.Products.Find(42);
-            var thingToReturn = thing?.ToString();
-            return Ok();
+            if (thing == null) // Check if the product is not found
+            {
+                throw new Exception("Product not found"); // Explicitly throw an exception
+            }
+            var thingToReturn = thing.ToString();
+            return Ok(thingToReturn);
         }
 
-        [HttpGet("badrequest")]
+        [HttpGet("bad-request")]
         public ActionResult GetBadRequest()
         {
              return BadRequest(new ApiResponse(400));
         }
 
-        [HttpGet("badrequest/{id}")]
-        public ActionResult GetBadRequest(int id)
+        [HttpGet("bad-request/{id}")]
+        public ActionResult GetNotFoundRequest(int id)
         {
-            return BadRequest();
+            return Ok();
         }
     }
 }

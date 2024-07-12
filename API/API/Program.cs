@@ -24,6 +24,7 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
+
 // Apply migrations and seed the database
 using (var scope = app.Services.CreateScope())
 {
@@ -43,12 +44,13 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    
+    app.UseMiddleware<ExceptionMiddleware>();
+   
     app.UseSwagger();
     app.UseSwaggerUI();
 }

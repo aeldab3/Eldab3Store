@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace API.Middleware
 {
-    // Handle exceptions thrown in the request pipeline.
+    //Handle exceptions thrown in the request pipeline.
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
@@ -32,8 +32,8 @@ namespace API.Middleware
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; //Sets the response status code to 500
 
                 var response = _env.IsDevelopment()
-                    ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace.ToString()) //If in development environment, includes the exception message and stack trace.
-                    : new ApiException(context.Response.StatusCode, ex.Message, "Internal Server Error"); //If not in development, includes a generic "server error" message.
+                    ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString()) //If in development environment, includes the exception message and stack trace.
+                    : new ApiException((int)HttpStatusCode.InternalServerError); //If not in development, includes a generic "server error" message.
 
                 //Serializes the ApiException object to JSON with camel case property naming.
                 var options = new JsonSerializerOptions
@@ -47,6 +47,8 @@ namespace API.Middleware
             }
         }
     }
+
+
 }
 
 

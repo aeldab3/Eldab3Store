@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="card border-danger">
+    <div class="card-header bg-danger text-white">
+      <h4 class="mb-0">Internal Server Error</h4>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="error">
+        <h5 class="text-danger">Error: {{error.message}}</h5>
+        <p class="font-weight-bold">Note: if you are seeing this then Angular is probably not responsible</p>
+        <p>What to do next?</p>
+        <ol class="list-group list-group-flush">
+          <li class="list-group-item">Open Chrome dev tools</li>
+          <li class="list-group-item">Inspect the network tab</li>
+          <li class="list-group-item">Check the failing request</li>
+          <li class="list-group-item">Examine this request URL – make sure this is correct</li>
+          <li class="list-group-item">Reproduce the error in Postman – if we get the same response in Postman, then the issue is NOT with Angular</li>
+        </ol>
+        <p class="mt-4">Following is the stack trace – this is where your investigation should start!</p>
+        <pre class="p-3 bg-light text-dark border">{{error.details}}</pre>
+      </ng-container>
+    </div>
+  </div>
+</div>
