@@ -1,0 +1,18 @@
+<ng-container *ngIf="(breadcrumb$ | async ) as breadcrumbs">
+  <!-- The async pipe subscribes to an Observable or Promise and returns the latest value it has emitted -->
+  <!-- breadcrumbs holds the emitted value from the breadcrumb$ Observable. -->
+  <section *ngIf="breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label !== 'Home'" class="py-4" style="margin-top: 100px; background-color: #f5f5f5;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-9 mb-3 mb-md-0">
+          <h1 class="text-primary">{{breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length-1].label | titlecase}}</h1>
+          <!-- pipe for the breadcrumb label ensures that the title is displayed in a user-friendly format. -->
+        </div>
+        <div class="col-12 col-md-3 text-md-right">
+          <xng-breadcrumb></xng-breadcrumb>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</ng-container>

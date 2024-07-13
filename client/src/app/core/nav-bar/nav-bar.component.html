@@ -1,18 +1,18 @@
 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 border-bottom shadow-sm bg-white fixed-top">
   <img class="logo" src="/assets/images/logo.png" style="max-height: 70px;" alt="logo" routerLink="/">
-  <nav class="mt-2 mt-md-0 ms-md-auto text-uppercase" style="font-size: large;">
+  <nav class="mt-2 mt-md-0 text-uppercase d-flex flex-column flex-md-row align-items-center" style="font-size: large;">
     <a class="p-2 " [routerLink]="['/']" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a class="p-2 " routerLink="/shop" routerLinkActive="active">Shop</a>
     <a class="p-2" routerLink="/test-error" routerLinkActive="active">Error</a>
   </nav>
-  <div class="d-flex align-items-center">
-    <a class="position-relative">
+  <div class="d-flex align-items-center mt-2 mt-md-0">
+    <a class="position-relative mr-2">
       <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
       <div class="cart-no">5</div>
     </a>
-    <a class="btn btn-outline-secondary mr-2">Login</a>
-    <a class="btn btn-outline-secondary mr-3">Sign up</a>
+    <a class="btn btn-outline-primary mr-2">Login</a>
+    <a class="btn btn-outline-primary mr-3">Sign up</a>
   </div>
 </div>
 

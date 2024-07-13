@@ -1,6 +1,7 @@
-<div class="container">
+<div class="container mt-3">
   <div class="row">
-    <section class="col-3">
+    <section class="col-12 col-md-3">
+      <ng-container *ngIf="types && brands">
       <h5 class="text-warning ml-3">Sort</h5>
       <select class="custom-select mb-3" (change)="onSortSelected($event.target.value)">
         <!-- $event.target.value gets the value of the selected option from the event's target element (the select element). -->
@@ -12,7 +13,7 @@
 
       <h5 class="text-warning ml-3">Brands</h5>
       <ul class="list-group my-3" >
-        <li class="list-group-item " *ngFor="let brand of brands"
+        <li class="list-group-item " style="cursor: pointer;" *ngFor="let brand of brands"
         [class.active]="brand.id === this.shopParams.brandId"
         [value]="brand.id"
         (click)="onBrandSelected(brand.id)"
@@ -22,33 +23,36 @@
 
       <h5 class="text-warning ml-3">Types</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item" *ngFor="let type of types"
+        <li class="list-group-item" style="cursor: pointer;" *ngFor="let type of types"
         [class.active]="type.id === this.shopParams.typeId"
         [value]="type.id"
         (click)="onTypeSelected(type.id)"
         >
         {{type.name}}</li>
       </ul>
+    </ng-container>
     </section>
     <!-- start header for search and count the items -->
-    <section class="col-9">
-        <div class="d-flex justify-content-between align-items-center">
+    <section class="col-12 col-md-9">
+        <div class="d-flex flex-column flex-md-row  justify-content-between align-items-center mb-3">
           <app-paging-header
           [totalCount]="totalCount"
           [pageSize]="this.shopParams.pageSize"
           [pageNumber]="this.shopParams.pageNumber"
       >
     </app-paging-header>
-    <div class="form-inline mt-2">
-      <input type="text" (keyup.enter)="onSearch()" class="form-control mr-2" #search style="width: 300px;" placeholder="Search">
-          <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
-          <button (click)="onReset()" class="btn btn-outline-warning my-2 ml-2">Reset</button>
+    <div class="form-inline mt-md-0 d-flex flex-column flex-md-row align-items-center" *ngIf="products">
+      <input type="text" (keyup.enter)="onSearch()" class="form-control mr-2 mb-2 mb-md-0" #search style="width: 300px;" placeholder="Search">
+      <div class="button">
+        <button (click)="onSearch()" class="btn btn-outline-primary mb-2 mb-md-0 mr-2">Search</button>
+        <button (click)="onReset()" class="btn btn-outline-info mb-2 mb-md-0">Reset</button>
+      </div>
         </div>
       </div>
       <!-- start header for search and count the items -->
       <!--Start items Section-->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-        <div class="col-4 mb-4" *ngFor="let item of products">
+        <div class="col mb-4" *ngFor="let item of products">
           <app-product-item
           [product]="item"
           >

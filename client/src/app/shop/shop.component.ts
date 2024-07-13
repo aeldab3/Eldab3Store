@@ -12,7 +12,7 @@ import { IType } from '../shared/models/productType';
 })
 export class ShopComponent implements OnInit {
 // Define class properties
-@ViewChild('search', {static: true}) searchTerm!: ElementRef; //The @ViewChild decorator is used to access a template reference variable (#search) in component template. //ElementRef provides a way to interact directly with a native DOM element //The searchTerm property will hold a reference to the input element identified by #search.
+@ViewChild('search', {static: false}) searchTerm!: ElementRef; //The @ViewChild decorator is used to access a template reference variable (#search) in component template. //ElementRef provides a way to interact directly with a native DOM element //The searchTerm property will hold a reference to the input element identified by #search.
 products: IProduct[] = []; // Array to hold the products
 brands: IBrand[] = [];
 types: IType[] = [];
