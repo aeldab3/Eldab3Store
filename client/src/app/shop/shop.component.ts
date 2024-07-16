@@ -27,13 +27,9 @@ sortOptions = [ // Array of sorting options
   constructor(private shopService: ShopService) { }
 
   ngOnInit(): void{
-// this.shopService.getProducts().subscribe(response =>{
-//   this.products = response.data;
-// }, error => {
-//   console.log(error);
-// })
 
-// // Call the methods to get products, brands, and types
+
+// Call the methods to get products, brands, and types
 this.getProducts();
 this.getBrands();
 this.getTypes();

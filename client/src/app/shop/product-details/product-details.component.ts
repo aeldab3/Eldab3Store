@@ -13,7 +13,7 @@ export class ProductDetailsComponent implements OnInit {
 product!: IProduct;
   constructor(private shopService: ShopService, private activateRoute: ActivatedRoute, private bcService: BreadcrumbService) {
     this.bcService.set('@productDetails', ' ')
-   }
+  }
 
   ngOnInit(): void {
     this.loadProduct();
@@ -22,12 +22,6 @@ product!: IProduct;
   // This method fetches the product details based on the route parameter id.
   loadProduct(){
     this.shopService.getProduct(+this.activateRoute.snapshot.paramMap.get('id')!).subscribe({ //snapshot: It provides the current state of the route at the time of the component's initialization.
-      // product => {
-      //   this.product = product;
-      // },
-      // error =>{
-      //   console.error(error);
-      // }
       next:(product) => {
         this.product = product;
         this.bcService.set('@productDetails', product.name);
