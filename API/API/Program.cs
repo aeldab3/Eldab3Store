@@ -36,6 +36,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(c => {
 builder.Services.AddApplicationServices();
 builder.Services.AddIdentityServices(_config); //Pass the configuration object to the extension method
 
+builder.Services.AddSwaggerDocumentaion();
+
 var app = builder.Build();
  
 
