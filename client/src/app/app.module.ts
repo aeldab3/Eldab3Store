@@ -10,6 +10,7 @@ import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
     HttpClientModule,
     CoreModule,
     HomeModule,
+    AccountModule,
     NgxSpinnerModule.forRoot({ type: 'timer' })
   ],
   providers: [
