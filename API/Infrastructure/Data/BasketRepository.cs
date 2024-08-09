@@ -12,8 +12,9 @@ namespace Infrastructure.Data
 {
     public class BasketRepository : IBasketRepository
     {
-        private readonly IDatabase _database; 
-        public BasketRepository(IConnectionMultiplexer redis) {
+        private readonly IDatabase _database;
+        public BasketRepository(IConnectionMultiplexer redis)
+        {
 
             _database = redis.GetDatabase(); //Initializes the _database field by getting a Redis database instance
         }
@@ -33,10 +34,11 @@ namespace Infrastructure.Data
         {
             //Uses the StringSetAsync method of the Redis database to set the basket data with an expiration time of 30 days
             var created = await _database.StringSetAsync(basket.Id, JsonSerializer.Serialize(basket)
-                ,TimeSpan.FromDays(30)); //Serializes the CustomerBasket object to a JSON string.
+                , TimeSpan.FromDays(30)); //Serializes the CustomerBasket object to a JSON string.
             if (!created) return null;
 
             return await GetBasketAsync(basket.Id); //to retrieve the updated basket and returns it.
         }
     }
+  
 }

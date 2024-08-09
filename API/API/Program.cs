@@ -23,13 +23,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 builder.Services.AddDbContext<StoreContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(_config.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<AppIdentityDbContext>(options => 
-options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+options.UseSqlite(_config.GetConnectionString("IdentityConnection")));
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(c => {
-    var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
+    var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
     return ConnectionMultiplexer.Connect(configuration);
 });
 

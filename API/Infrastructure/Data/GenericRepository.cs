@@ -16,7 +16,7 @@ namespace Infrastructure.Data
 
         public GenericRepository(StoreContext context)
         {
-           _context = context;
+            _context = context;
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -52,5 +52,24 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec); //AsQueryable(): Converts the DbSet<T> to IQueryable<T>.
         }
+
+        public void Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            // Attaches the entity to the DbSet<T> in the context.
+            _context.Set<T>().Attach(entity);
+            // Marks the entity's state as modified, so changes will be saved.
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+        }
     }
+   
 }
