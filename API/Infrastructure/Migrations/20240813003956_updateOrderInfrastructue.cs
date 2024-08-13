@@ -5,7 +5,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UnitOW : Migration
+    public partial class updateOrderInfrastructue : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,14 +18,6 @@ namespace Infrastructure.Migrations
                 oldClrType: typeof(int),
                 oldType: "INTEGER")
                 .OldAnnotation("Sqlite:Autoincrement", true);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "ItemOrdered_ProductItemId",
-                table: "OrderItems",
-                type: "INTEGER",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
         }
 
         /// <inheritdoc />
@@ -39,14 +31,6 @@ namespace Infrastructure.Migrations
                 oldClrType: typeof(int),
                 oldType: "INTEGER")
                 .Annotation("Sqlite:Autoincrement", true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ItemOrdered_ProductItemId",
-                table: "OrderItems",
-                type: "TEXT",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "INTEGER");
         }
     }
 }

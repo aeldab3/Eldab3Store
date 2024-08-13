@@ -24,10 +24,6 @@ namespace Infrastructure.Data.Config
                     o => o.ToString(), //converts the enum value to a string when saving to the database
                     o => (OrderStatus)Enum.Parse(typeof(OrderStatus), o) //converts the string back to the enum value when reading from the database
                 );
-
-            builder.HasMany(o => o.OrderItems) 
-                .WithOne() //specifies that each OrderItem is related to one Order.
-                .OnDelete(DeleteBehavior.Cascade); //when an Order is deleted, all related OrderItems will also be deleted.
         }
     }
 }

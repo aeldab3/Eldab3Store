@@ -53,7 +53,7 @@ namespace Infrastructure.Data
 
                 if (!context.DeliveryMethods.Any())
                 {
-                   
+
                     var dmData = File.ReadAllText("../Infrastructure/Data/SeedData/delivery.json");
                     var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
                     foreach (var item in methods)
@@ -71,4 +71,6 @@ namespace Infrastructure.Data
             }
         }
     }
+
+
 }

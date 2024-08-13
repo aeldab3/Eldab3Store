@@ -51,4 +51,5 @@ namespace Infrastructure.Data
             return (IGenericRepository<TEntity>)_repositories[type];
         }
     }
+
 }

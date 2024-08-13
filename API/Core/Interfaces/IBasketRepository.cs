@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
+    //public interface IBasketRepository
+    //{
+    //    Task<CustomerBasket> GetBasketAsync (string baskedId);
+    //    Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket); //Takes a CustomerBasket object as a parameter.
+    //    Task<bool>  DeleteBasketAsync(string basketId);
+    //}
+
     public interface IBasketRepository
     {
-        Task<CustomerBasket> GetBasketAsync (string baskedId);
-        Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket); //Takes a CustomerBasket object as a parameter.
-        Task<bool>  DeleteBasketAsync(string basketId);
+        Task<CustomerBasket> GetBasketAsync(string basketId);
+        Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket);
+        Task<bool> DeleteBasketAsync(string basketId);
     }
 }
