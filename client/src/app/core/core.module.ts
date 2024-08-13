@@ -22,7 +22,7 @@ import { SharedModule } from '../shared/shared.module';
     })
   ],
   exports: [NavBarComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
   ]
 })
 export class CoreModule { }

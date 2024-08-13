@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  app-stepper {
+    margin-bottom: 20px;
+  }
+
+  app-order-totals {
+    margin-top: 20px;
+  }
+}

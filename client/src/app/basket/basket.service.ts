@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, throwError , map, Observable } from 'rxjs'
 import { Basket, IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
 import { IProduct } from '../shared/models/product';
 import { environment } from 'src/environments/environment';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ private basketSource = new BehaviorSubject<IBasket | null>(null); //BehaviorSubj
 basket$ = this.basketSource.asObservable(); //This is an observable of the basketSource that can be subscribed to by other components or services to get the current state of the basket.
 private basketTotalSource = new BehaviorSubject<IBasketTotals | null>(null);
 basketTotal$ = this.basketTotalSource.asObservable();
+shipping = 0;
   constructor(private http: HttpClient) { }
-
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.calculateTotals();
+  }
   // Fetches the basket by ID
   getBasket(id: string) {
     return this.http.get<IBasket>(`${this.baseUrl}basket?id=${id}`)
@@ -92,7 +97,7 @@ private addOrUpdateItem(items: IBasketItem[], itemToAdd: IBasketItem, quantity: 
 private calculateTotals (){
   const basket = this.getCurrentBasketValue();
   if (basket && basket.items) { //If the basket exists and has items
-    const shipping = 0;
+    const shipping = this.shipping;
     const subtotal = basket.items.reduce((a, b) => (b.price * b.quantity) + a, 0); //Calculate the subtotal by summing up the total price of each item
     const total = subtotal + shipping;
     this.basketTotalSource.next({shipping, total, subtotal}); //Update the basketTotalSource with the new totals
@@ -134,6 +139,13 @@ decrementItemQuantity(item: IBasketItem){
       }
     }
   }
+
+  deleteLocalBasket(id: string) {
+    this.basketSource.next(null);
+    this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
+  }
+  
   deleteBasket(basket: IBasket) {
     return this.http.delete(`${this.baseUrl}basket?id=${basket.id}`).subscribe({
       next: () => {

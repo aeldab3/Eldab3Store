@@ -1,0 +1,61 @@
+/* Base styles */
+
+
+/* Container styles */
+
+/* Icon styles */
+.icon-container {
+  margin-bottom: 20px;
+}
+
+.check-icon {
+  color: green;
+  animation: pulse 1.5s infinite;
+}
+
+/* Button styles */
+.btn-outline-success {
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .check-icon {
+    font-size: 4em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  p {
+    font-size: 1em;
+  }
+
+  .btn-outline-success {
+    width: 100%;
+    padding: 12px;
+  }
+}

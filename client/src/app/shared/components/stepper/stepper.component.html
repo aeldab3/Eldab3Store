@@ -1,0 +1,16 @@
+<div class="container">
+  <ul class="nav nav-pills nav-justified">
+      <li class="nav-item" *ngFor="let step of steps; let i = index">
+          <button
+              (click)="onClick(i)"
+              [class.active]="selectedIndex === i"
+              class="nav-link text-uppercase font-weight-bold btn-block" style="padding: 1.20em;">
+              {{step.label}}:{{step.completed}}
+          </button>
+      </li>
+  </ul>
+  <div>
+    <!-- This Angular directive renders the content of the selected step by ngTemplateOutlet-->
+<ng-container [ngTemplateOutlet]="selected?.content ?? null"></ng-container>  </div>
+</div>
+

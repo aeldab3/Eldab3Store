@@ -1,0 +1,11 @@
+.table-responsive {
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .product{
+    margin-right: 50px;
+    width: 300px;
+  }
+}
