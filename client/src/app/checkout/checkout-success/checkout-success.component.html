@@ -4,5 +4,6 @@
   </div>
   <h2 class="mb-2">Thank you, Your order is confirmed!</h2>
   <p class="mb-4">Your order has not shipped yet, but this is to be expected as we are not a real store!</p>
-  <button class="btn btn-outline-success btn-lg">View your order</button>
+  <button *ngIf="order" routerLink="/orders/{{order.id}}" class="btn btn-outline-success btn-lg">View your order</button>
+  <button *ngIf="!order" routerLink="/orders" class="btn btn-outline-success btn-lg">View your orders</button>
 </div>

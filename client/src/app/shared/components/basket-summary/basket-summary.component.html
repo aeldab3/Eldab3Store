@@ -1,7 +1,7 @@
-<ng-container *ngIf="basket$ | async">
+<ng-container *ngIf="items.length > 0">
   <div class="table-responsive">
     <table class="table table-hover">
-      <thead [class.thead-dark]="isBasket">
+      <thead [class.thead-dark]="isBasket || isOrder">
         <tr>
           <th scope="col" class="border-0">
             <div class="py-2 text-uppercase text-center">Product</div>
@@ -21,15 +21,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of (basket$ | async)?.items">
+        <tr *ngFor="let item of $any(items)">
           <th scope="row">
             <div class="p-2 d-flex align-items-center product">
-              <img src="{{item.pictureUrl}}" alt="{{item.productName}}" class="img-fluid rounded" style="max-height: 50px;">
+              <img src="{{item.pictureUrl}}" alt="{{item}}" class="img-fluid rounded" style="max-height: 50px;">
               <div class="ml-3">
                 <h5 class="mb-0">
-                  <a routerLink="/shop/{{item.id}}" class="text-dark">{{item.productName}}</a>
+                  <a routerLink="/shop/{{item.id || item.productId}}" class="text-dark">{{item.productName}}</a>
                 </h5>
-                <span class="text-muted font-weight-normal font-italic">Type: {{item.type}}</span>
+                <span *ngIf="item.type" class="text-muted font-weight-normal font-italic">Type: {{item.type}}</span>
               </div>
             </div>
           </th>
