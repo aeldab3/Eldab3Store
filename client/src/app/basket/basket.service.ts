@@ -17,9 +17,24 @@ private basketTotalSource = new BehaviorSubject<IBasketTotals | null>(null);
 basketTotal$ = this.basketTotalSource.asObservable();
 shipping = 0;
   constructor(private http: HttpClient) { }
+
+  createPaymentIntent(){
+    return this.http.post<IBasket>(this.baseUrl + 'payments/' + this.getCurrentBasketValue()?.id, {}).pipe(
+      map((basket : IBasket) => {
+        this.basketSource.next(basket);
+        console.log(this.getCurrentBasketValue());
+      })
+    )
+  }
+
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
-    this.calculateTotals();
+    const basket = this.getCurrentBasketValue();
+      basket!.deliveryMethodId = deliveryMethod.id;
+      basket!.shippingPrice = deliveryMethod.price;
+      this.calculateTotals();
+      this.setBasket(basket!);
+
   }
   // Fetches the basket by ID
   getBasket(id: string) {
@@ -28,6 +43,7 @@ shipping = 0;
     .pipe(
       map((basket: IBasket) => {
         this.basketSource.next(basket);
+        this.shipping = basket.shippingPrice ?? 0;
         this.calculateTotals();
       }),
       catchError(this.handleError)
@@ -145,7 +161,7 @@ decrementItemQuantity(item: IBasketItem){
     this.basketTotalSource.next(null);
     localStorage.removeItem('basket_id');
   }
-  
+
   deleteBasket(basket: IBasket) {
     return this.http.delete(`${this.baseUrl}basket?id=${basket.id}`).subscribe({
       next: () => {
