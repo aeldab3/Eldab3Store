@@ -18,13 +18,13 @@ basketTotal$ = this.basketTotalSource.asObservable();
 shipping = 0;
   constructor(private http: HttpClient) { }
 
-  createPaymentIntent(){
-    return this.http.post<IBasket>(this.baseUrl + 'payments/' + this.getCurrentBasketValue()?.id, {}).pipe(
-      map((basket : IBasket) => {
-        this.basketSource.next(basket);
-        console.log(this.getCurrentBasketValue());
-      })
-    )
+  createPaymentIntent() {
+    return this.http.post<IBasket>(this.baseUrl + 'payments/' + this.getCurrentBasketValue()?.id, {})
+      .pipe(
+        map((basket: IBasket) => {
+          this.basketSource.next(basket);
+        })
+      );
   }
 
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
@@ -38,7 +38,7 @@ shipping = 0;
   }
   // Fetches the basket by ID
   getBasket(id: string) {
-    return this.http.get<IBasket>(`${this.baseUrl}basket?id=${id}`)
+    return this.http.get<IBasket>(this.baseUrl + 'basket?id=' + id)
     // The response is piped through the map operator, which sets the fetched basket as the current basket in basketSource.
     .pipe(
       map((basket: IBasket) => {
@@ -50,9 +50,9 @@ shipping = 0;
     );
   }
 
-//// Updates the basket
+// Updates the basket
 setBasket(basket: IBasket){
-  return this.http.post<IBasket>(`${this.baseUrl}basket`, basket) //The basket parameter is sent as the payload of the POST request.
+  return this.http.post<IBasket>(this.baseUrl + 'basket', basket) //The basket parameter is sent as the payload of the POST request.
   .subscribe((response: IBasket) => {
       this.basketSource.next(response); //updates the BehaviorSubject with the new basket data
       this.calculateTotals();
@@ -163,7 +163,7 @@ decrementItemQuantity(item: IBasketItem){
   }
 
   deleteBasket(basket: IBasket) {
-    return this.http.delete(`${this.baseUrl}basket?id=${basket.id}`).subscribe({
+    return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe({
       next: () => {
         this.basketSource.next(null);
         this.basketTotalSource.next(null);

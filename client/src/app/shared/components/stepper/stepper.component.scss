@@ -16,6 +16,7 @@ button.nav-link {
       outline: none;
   }
   &:disabled:not(.active) {
-      color: #333;
+      background-color: #e9ecef;
+      color: #e95420;
   }
 }

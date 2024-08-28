@@ -23,7 +23,7 @@
   <button class="btn btn-outline-primary mb-2" cdkStepperPrevious>
     <i class="fa fa-angle-left"></i> Back to Address
   </button>
-  <button class="btn btn-primary" cdkStepperNext>
+  <button [disabled]="checkoutForm.get('deliveryForm')?.invalid" class="btn btn-primary" cdkStepperNext>
     Continue to Review <i class="fa fa-angle-right"></i>
   </button>
 </div>
