@@ -1,4 +1,4 @@
-import { shopParams } from './../shared/models/shopParams';
+import { ShopParams} from './../shared/models/shopParams';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ShopService } from './shop.service';
 import { IProduct } from '../shared/models/product';
@@ -16,7 +16,7 @@ export class ShopComponent implements OnInit {
 products: IProduct[] = []; // Array to hold the products
 brands: IBrand[] = [];
 types: IType[] = [];
-shopParams: shopParams = new shopParams();
+shopParams!: ShopParams;
 totalCount: number = 0;
 sortOptions = [ // Array of sorting options
   {name: 'Name: (a - z)', value: 'name'},
@@ -24,25 +24,25 @@ sortOptions = [ // Array of sorting options
   {name: 'Price: High To Low', value: 'priceDesc'}
 ]
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService) {
+    this.shopParams = this.shopService.getShopParams();
+  }
 
   ngOnInit(): void{
 
 
 // Call the methods to get products, brands, and types
-this.getProducts();
+this.getProducts(true);
 this.getBrands();
 this.getTypes();
 }
 
   // Method to get products based on selected brand, type, and sort option
-  getProducts(){
-  this.shopService.getProducts(this.shopParams).subscribe({
+  getProducts(useCache = false){
+  this.shopService.getProducts(useCache).subscribe({
     next: (products) => { //The 'next' handler is called when new data arrives
       this.products = products?.data || []; //Assign the fetched products to the products array
-      this.shopParams.pageNumber = products?.pageIndex || 1; //Set the pageNumber from the returned products data
-      this.shopParams.pageSize = products?.pageSize || 6;
-      this.totalCount = products?.count || 0;
+      this.totalCount = products?.count || 0; //Set the totalCount from the returned products data
       },
     error: (response) => {
       console.log(response);
@@ -76,41 +76,52 @@ getTypes(){
 
   // Method to handle brand selection
   onBrandSelected(brandId: number){
-    this.shopParams.brandId = brandId; // Set the selected brand ID in the shopParams object
-    this.shopParams.pageNumber = 1; //Reset the page number to 1 whenever a new brand is selected
+    const params = this.shopService.getShopParams();
+    params.brandId = brandId; // Set the selected brand ID in the shopParams object
+    params.pageNumber = 1; //Reset the page number to 1 whenever a new brand is selected
+    this.shopService.setShopParams(params);
     this.getProducts(); // Fetch the products based on the updated shopParams
   };
 
   onTypeSelected(typeId: number){
-    this.shopParams.typeId = typeId;
-    this.shopParams.pageNumber = 1;
+    const params = this.shopService.getShopParams();
+    params.typeId = typeId;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
     this.getProducts();
   };
 
   onSortSelected(sort: string){
-    this.shopParams.sort = sort;
+    const params = this.shopService.getShopParams();
+    params.sort = sort;
+    this.shopService.setShopParams(params);
     this.getProducts();
   }
 
   onPageChanged(event: any){
+    const params = this.shopService.getShopParams();
     //Check if the new page number is different from the current page number
-    if (this.shopParams.pageNumber !== event){
+    if (params.pageNumber !== event){
       // Update the page number in shopParams with the new page number from the event
-      this.shopParams.pageNumber = event;
-      this.getProducts();
+      params.pageNumber = event;
+      this.shopService.setShopParams(params);
+      this.getProducts(true);
     }
   }
 
   onSearch(){
+    const params = this.shopService.getShopParams();
     //Update the search term in shopParams with the value from the search input field
-    this.shopParams.search = this.searchTerm.nativeElement.value;
-    this.shopParams.pageNumber = 1;
+    params.search = this.searchTerm.nativeElement.value;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
     this.getProducts();
   }
 
   onReset(){
     this.searchTerm.nativeElement.value = '';
-    this.shopParams = new shopParams(); //Reset the shopParams object to its default state
+    this.shopParams = new ShopParams(); //Reset the shopParams object to its default state
+    this.shopService.setShopParams(this.shopParams);
     this.getProducts();
   }
 }

@@ -1,6 +1,9 @@
 <div class="container mt-2">
-  <div *ngIf="(basket$ | async) === null" class="text-center">
-    <p>Your basket is empty</p>
+  <div *ngIf="(basket$ | async) === null" class="text-center empty-basket">
+    <img src="../../assets/images/emptyBasket.png" alt="Empty Basket" class="empty-basket-image">
+    <h2 class="text-primary">Your basket is empty</h2>
+    <p>It looks like you haven't added anything to your basket yet.</p>
+    <a routerLink="/shop" class="btn btn-primary">Continue Shopping</a>
   </div>
 
   <div *ngIf="(basket$ | async) as basket">
